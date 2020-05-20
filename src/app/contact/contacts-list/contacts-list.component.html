@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-between">
+  <div>
+    <h4 class="mb-3">Contacts</h4>
+  </div>
+  <div>
+    <button class="btn btn-outline-success" [routerLink]="['/contacts/add']">Add Contact</button>
+  </div>
+</div>
+
+<table aria-describedby="contacts" class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of contacts | async">
+      <td>{{item.name}}</td>
+      <td>{{item.age}}</td>
+      <td><a [href]="'mailto:' + item.email">{{item.email}}</a></td>
+      <td>{{item.phone}}</td>
+    </tr>
+  </tbody>
+</table>
