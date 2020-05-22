@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark" *ngIf="show()">
   <a class="navbar-brand" [routerLink]="['/']">Any App</a>
 
   <div class="collapse navbar-collapse">
@@ -6,9 +6,13 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/contacts']">Contacts </a>
       </li>
-      <!-- <li class="nav-item" routerLinkActive="active">
+      <li class="nav-item" routerLinkActive="active" *appHasRole="'ADMIN'">
         <a class="nav-link" [routerLink]="['/admin']">Admin </a>
-      </li> -->
+      </li>
     </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <button class="btn btn-link text-light mr-5">User: {{ getUser() }} </button>
+      <button class="btn btn-link text-light" (click)="logout()">Logout</button>
+    </div>
   </div>
 </nav>

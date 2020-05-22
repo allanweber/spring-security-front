@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { ContactDeleteComponent } from './contact-delete/contact-delete.componen
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ContactRoutingModule
+    ContactRoutingModule,
+    SharedModule
   ]
 })
 export class ContactModule { }
