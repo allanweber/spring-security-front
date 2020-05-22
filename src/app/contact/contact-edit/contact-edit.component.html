@@ -1,47 +1,47 @@
 <div class="w-50 p-3 mx-auto">
-<div class="d-flex justify-content-between">
-  <div>
-    <h4 class="mb-3">Add a new Contact</h4>
+  <div class="d-flex justify-content-between">
+    <div>
+      <h4 class="mb-3">Add a new Contact</h4>
+    </div>
   </div>
-</div>
-<div class="shadow-lg p-3 mb-5 bg-white rounded">
-  <form [formGroup]="contactForm" (ngSubmit)="save()">
+  <div class="shadow-lg p-3 mb-5 bg-white rounded">
+    <form [formGroup]="contactForm" (ngSubmit)="save()">
 
-    <div class="form-group">
-      <input class="form-control" placeholder="Name" name="name" type="text" formControlName="name" #userName required
-        [ngClass]="{'is-invalid': isInvalid('name')}">
-      <div class="invalid-feedback">
-        Please provide a valid Name.
+      <div class="form-group">
+        <input class="form-control" placeholder="Name" name="name" type="text" formControlName="name" #userName required
+          [ngClass]="{'is-invalid': isInvalid('name')}">
+        <div class="invalid-feedback">
+          Please provide a valid Name.
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <input class="form-control" placeholder="10+" name="age" type="number" formControlName="age" #age required
-        [ngClass]="{'is-invalid': isInvalid('age')}">
-      <div class="invalid-feedback">
-        Please provide a valid Age.
+      <div class="form-group">
+        <input class="form-control" placeholder="10+" name="age" type="number" formControlName="age" #age required
+          [ngClass]="{'is-invalid': isInvalid('age')}">
+        <div class="invalid-feedback">
+          Please provide a valid Age.
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <input class="form-control" placeholder="email@email.com" name="email" type="email" formControlName="email" #email
-        required [ngClass]="{'is-invalid': isInvalid('email')}">
-      <div class="invalid-feedback">
-        Please provide a valid Email.
+      <div class="form-group">
+        <input class="form-control" placeholder="email@email.com" name="email" type="email" formControlName="email"
+          #email required [ngClass]="{'is-invalid': isInvalid('email')}">
+        <div class="invalid-feedback">
+          Please provide a valid Email.
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <input class="form-control" placeholder="123456789" name="phone" type="number" formControlName="phone" #phone
-        required [ngClass]="{'is-invalid': isInvalid('phone')}">
-      <div class="invalid-feedback">
-        Please provide a valid Phone.
+      <div class="form-group">
+        <input class="form-control" placeholder="123456789" name="phone" type="number" formControlName="phone" #phone
+          required [ngClass]="{'is-invalid': isInvalid('phone')}">
+        <div class="invalid-feedback">
+          Please provide a valid Phone.
+        </div>
       </div>
-    </div>
 
-    <input class="btn btn-lg btn-success mr-5" type="submit" value="Save" [disabled]="!contactForm.valid">
-    <button class="btn btn-lg btn-outline-info" [routerLink]="['/contacts/list']">Back</button>
+      <input class="btn btn-lg btn-success mr-5" type="submit" value="Save" [disabled]="!contactForm.valid">
+      <button class="btn btn-lg btn-outline-info" [routerLink]="['/contacts/list']">Back</button>
 
-  </form>
-</div>
+    </form>
+  </div>
 </div>

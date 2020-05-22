@@ -1,0 +1,12 @@
+<div class="shadow-lg p-3 mb-5 bg-white rounded w-50 p-3 mx-auto">
+  <div class="alert alert-danger" role="alert">
+    Are you sure you want to remove the contact?
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of generateArray(contact)">{{item.key | titlecase }}: {{item.value}}</li>
+  </ul>
+
+  <button class="btn btn-lg btn-danger btn-block mr-5" (click)="delete()">Delete</button>
+  <button class="btn btn-lg btn-outline-info btn-block" [routerLink]="['/contacts/list']">Back</button>
+</div>

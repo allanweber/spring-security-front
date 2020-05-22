@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Contact } from './../model/contact.model';
 import { ContactsService } from './../services/contacts.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,9 +13,10 @@ export class ContactEditComponent implements OnInit {
   private numbersValidator = Validators.pattern('^[0-9]*$');
 
   public contactForm = this.builder.group({
-    name: ['Name 121212', [Validators.required, Validators.minLength(5)]],
+    id: [''],
+    name: ['', [Validators.required, Validators.minLength(5)]],
     age: [
-      '36',
+      '',
       [
         Validators.required,
         Validators.max(120),
@@ -23,26 +24,56 @@ export class ContactEditComponent implements OnInit {
         this.numbersValidator,
       ],
     ],
-    email: ['mail@mail.com', [Validators.required, Validators.email]],
-    phone: ['234324324324', [Validators.required, this.numbersValidator]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, this.numbersValidator]],
   });
 
   constructor(
     private builder: FormBuilder,
     private contactsService: ContactsService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    if (this.activatedRoute.routeConfig.path === 'add') {
+      return;
+    }
+
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.id) {
+        this.contactsService.get(params.id).subscribe(
+          (response) => this.load(response),
+          () => {
+            alert('Invalid Contact');
+            this.router.navigate(['/contacts/list']);
+          }
+        );
+      } else {
+        alert('Invalid Contact');
+        this.router.navigate(['/contacts/list']);
+      }
+    });
+  }
+
+  load(contact: Contact) {
+    const formData = {
+      id: contact.id,
+      name: contact.name,
+      age: contact.age,
+      email: contact.email,
+      phone: contact.phone,
+    };
+
+    this.contactForm.patchValue(formData);
+  }
 
   save() {
     if (this.contactForm.invalid) {
       alert('Invalid Contact');
       return;
     }
-
     const contact: Contact = this.contactForm.value;
-
     this.contactsService
       .save(contact)
       .subscribe(() => this.router.navigate(['/contacts/list']));

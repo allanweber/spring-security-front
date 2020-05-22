@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +6,9 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'spring-security-web';
+  title = 'Contacts';
 
-  constructor(private authService: AuthService) {
+  constructor() {
 
-  }
-
-  showLogout(){
-    return this.authService.authenticated;
-  }
-
-  logout() {
-    this.authService.logout();
   }
 }

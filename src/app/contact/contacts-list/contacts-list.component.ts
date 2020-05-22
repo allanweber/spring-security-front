@@ -1,3 +1,4 @@
+import { isEmpty } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ContactsService } from './../services/contacts.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,8 @@ export class ContactsListComponent implements OnInit {
 
   public contacts: Observable<Contact[]>;
 
-  constructor(public contactsService: ContactsService) { }
+  constructor(public contactsService: ContactsService) {
+  }
 
   ngOnInit(): void {
     this.contacts = this.contactsService.getAll();

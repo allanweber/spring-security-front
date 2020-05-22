@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactRoutingModule } from './contact.routing';
 import { ContactEditComponent } from './contact-edit/contact-edit.component';
+import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
 
 
 
 @NgModule({
-  declarations: [ContactsListComponent, ContactEditComponent],
+  declarations: [ContactsListComponent, ContactEditComponent, ContactDeleteComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

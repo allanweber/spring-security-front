@@ -14,6 +14,7 @@
       <th scope="col">Age</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,10 @@
       <td>{{item.age}}</td>
       <td><a [href]="'mailto:' + item.email">{{item.email}}</a></td>
       <td>{{item.phone}}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm mr-4" [routerLink]="['/contacts/edit', item.id]"><em class="fa fa-user-edit"></em></button>
+        <button class="btn btn-secondary btn-sm" [routerLink]="['/contacts/remove', item.id]"><em class="fa fa-trash"></em></button>
+      </td>
     </tr>
   </tbody>
 </table>

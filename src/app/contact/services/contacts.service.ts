@@ -8,9 +8,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ContactsService {
-
-  private backEnd = environment.backend;
   private contactsUrl = `${environment.backend}/contacts`;
+
+  private managementUrl = `${environment.backend}/admin/contacts`;
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +19,29 @@ export class ContactsService {
   }
 
   save(contact: Contact) {
+    if (contact.id) {
+      return this.edit(contact);
+    } else {
+      return this.add(contact);
+    }
+  }
+
+  get(id: string) {
+    return this.http.get<Contact>(`${this.contactsUrl}/${id}`);
+  }
+
+  add(contact: Contact) {
     return this.http.post<Contact>(this.contactsUrl, contact);
+  }
+
+  edit(contact: Contact) {
+    return this.http.put<Contact>(
+      `${this.managementUrl}/${contact.id}`,
+      contact
+    );
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${this.managementUrl}/${id}`);
   }
 }
