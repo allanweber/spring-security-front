@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  private isEmailVerifyEnabled = false;
+
   public registerForm = this.builder.group(
     {
       // firstName: ['admin', [Validators.required, Validators.minLength(5)]],
@@ -37,7 +39,11 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.registrationService
+      .isEmailVerifyEnabled()
+      .subscribe((response) => (this.isEmailVerifyEnabled = response));
+  }
 
   register() {
     this.messages = [];
@@ -47,6 +53,13 @@ export class RegisterComponent implements OnInit {
 
     this.registrationService.register(this.registerForm.value).subscribe(
       () => {
+        if (this.isEmailVerifyEnabled) {
+          alert(
+            `An email was sent to ${
+              this.registerForm.get('email').value
+            } to confirm your account before the login`
+          );
+        }
         this.router.navigate(['/auth/signIn']);
       },
       (err) => {
