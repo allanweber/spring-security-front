@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   login() {
     if (this.loginForm.invalid) {
@@ -26,24 +26,6 @@ export class LoginComponent implements OnInit {
     const credentials: any = {
       username: this.loginForm.get('userName').value,
       password: this.loginForm.get('password').value,
-    };
-
-    this.authService.login(credentials);
-  }
-
-  loginUser() {
-    const credentials: any = {
-      username: 'user',
-      password: 'user',
-    };
-
-    this.authService.login(credentials);
-  }
-
-  loginAdmin() {
-    const credentials: any = {
-      username: 'admin',
-      password: 'admin@123',
     };
 
     this.authService.login(credentials);

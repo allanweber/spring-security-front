@@ -1,1 +1,71 @@
-<p>register works!</p>
+<div class="container-small shadow p-3 mb-5 bg-white rounded login mx-auto register">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Create a new account</h3>
+        </div>
+        <div class="panel-body">
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="form-group">
+              <input class="form-control" placeholder="First Name" name="firstName" type="text"
+                formControlName="firstName" #firstName required [ngClass]="{'is-invalid': isInvalid('firstName')}">
+              <div class="invalid-feedback">
+                Provide a valid First Name.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Last Name" name="lastName" type="text" formControlName="lastName"
+                #lastName required [ngClass]="{'is-invalid': isInvalid('lastName')}">
+              <div class="invalid-feedback">
+                Provide a valid Last Name
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="User Name" name="userName" type="text" formControlName="userName"
+                #userName required [ngClass]="{'is-invalid': isInvalid('userName')}">
+              <div class="invalid-feedback">
+                Provide a valid User Name
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Email" name="email" type="email" formControlName="email" #email
+                required [ngClass]="{'is-invalid': isInvalid('email')}">
+              <div class="invalid-feedback">
+                Provide a valid Email
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Password" name="password" type="password"
+                formControlName="password" #password required [ngClass]="{'is-invalid': isInvalid('password')}">
+              <div class="invalid-feedback">
+                Provide a valid password.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Password confirmation" name="confirmPassword" type="password"
+                formControlName="confirmPassword" #confirmPassword required
+                [ngClass]="{'is-invalid': isInvalid('confirmPassword')}">
+              <div class="invalid-feedback">
+                Provide a valid password confirmation.
+              </div>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-danger" *ngFor="let message of messages">{{message}}</li>
+            </ul>
+
+            <button class="btn btn-lg btn-success btn-block" [disabled]="!registerForm.valid">Create Account</button>
+            <button class="btn btn-lg btn-info btn-block" [routerLink]="['/auth/signIn']">Cancel</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

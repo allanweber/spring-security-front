@@ -23,12 +23,11 @@
               </div>
             </div>
             <input class="btn btn-lg btn-success btn-block" type="submit" value="Login" [disabled]="!loginForm.valid">
-            <button (click)="loginUser()" >Login User</button>
-            <button (click)="loginAdmin()">Login Admin</button>
+            <button class="btn btn-lg btn-info btn-block" [routerLink]="['/auth/signUp']">Create Account</button>
 
           </form>
           <hr />
-          <input class="btn btn-lg btn-facebook btn-block" type="submit" value="Login via facebook">
+          <button class="btn btn-lg btn-facebook btn-block">Login via facebook</button>
         </div>
       </div>
     </div>
