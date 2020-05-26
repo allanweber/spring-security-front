@@ -11,21 +11,34 @@
       <th scope="col">User Name</th>
       <th scope="col">Email</th>
       <th scope="col">Enabled</th>
+      <th scope="col">Two Factor Authentication</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of users | async">
+    <tr *ngFor="let user of users | async">
       <td>
-        <div *ngIf="item.firstName || item.lastName; else noName">{{item.firstName}} {{item.lastName}}</div>
+        <div *ngIf="user.firstName || user.lastName; else noName">{{user.firstName}} {{user.lastName}}</div>
         <ng-template #noName>
-            <span class="text-muted">No name</span>
+          <span class="text-muted">No name</span>
         </ng-template>
       </td>
-      <td>{{item.userName}}</td>
-      <td><a [href]="'mailto:' + item.email">{{item.email}}</a></td>
+      <td>{{user.userName}}</td>
+      <td><a [href]="'mailto:' + user.email">{{user.email}}</a></td>
       <td>
-        <em class="fa fa-check-double" [ngClass]="[ item.enabled ? 'text-success': 'text-muted']"></em>
+        <em class="fa fa-check-double" [ngClass]="[ user.enabled ? 'text-success': 'text-muted']"></em>
       </td>
+      <th scope="col">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" [id]="user.userName" [checked]="user.twoFactor"
+            (click)="changeTwoFactor(user)">
+          <label class="custom-control-label" [for]="user.userName"
+            *ngIf="user.twoFactor; else disabled">Enabled</label>
+          <ng-template #disabled>
+            <label class="custom-control-label" [for]="user.userName">Disabled</label>
+          </ng-template>
+
+        </div>
+      </th>
     </tr>
   </tbody>
 </table>

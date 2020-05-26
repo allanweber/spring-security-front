@@ -13,15 +13,13 @@ export class BasicAuthInterceptorService implements HttpInterceptor {
   constructor(private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-
     if (sessionStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {
           Authorization: sessionStorage.getItem('token'),
-        },
+        }, withCredentials: true
       });
     }
-
     return next.handle(req);
   }
 }

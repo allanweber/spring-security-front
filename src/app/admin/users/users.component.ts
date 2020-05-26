@@ -6,16 +6,22 @@ import { User } from 'src/app/shared/model/user.model';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-
   public users: Observable<User[]>;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.users = this.userService.getAll();
   }
 
+  changeTwoFactor(user: User) {
+    this.userService
+      .changeTwoFactorAuthentication(user.userName, user.twoFactor)
+      .subscribe(() => {
+        user.twoFactor = !user.twoFactor;
+      });
+  }
 }

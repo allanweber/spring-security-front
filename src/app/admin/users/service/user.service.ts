@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private usersUrl = `${environment.backend}/users`;
@@ -14,5 +14,24 @@ export class UserService {
 
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl);
+  }
+
+  changeTwoFactorAuthentication(
+    userName: string,
+    current: boolean
+  ): Observable<any> {
+    if (current) {
+      return this.disableTwoFactorAuthentication(userName);
+    } else {
+      return this.enableTwoFactorAuthentication(userName);
+    }
+  }
+
+  enableTwoFactorAuthentication(userName: string): Observable<any> {
+    return this.http.put(`${this.usersUrl}/${userName}/enable-two-factor`, {});
+  }
+
+  disableTwoFactorAuthentication(userName: string): Observable<any> {
+    return this.http.put(`${this.usersUrl}/${userName}/disable-two-factor`, {});
   }
 }
