@@ -5,6 +5,5 @@ export class User {
   lastName: string;
   email: string;
   enabled: boolean;
-  twoFactor: boolean;
   authorities: Authority[];
 }
