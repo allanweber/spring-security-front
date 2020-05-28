@@ -56,9 +56,11 @@ export class RefreshTokenService {
     const expireOn = new Date(issuedAt);
     expireOn.setSeconds(expireOn.getSeconds() + this.tokenStorage.expiration);
 
-    let startTimer = (expireOn.getTime() - new Date().getTime()) / MILES;
-
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + now.getTimezoneOffset());
+    let startTimer = (expireOn.getTime() - now.getTime()) / MILES;
     startTimer = (startTimer - SECONDS_BEFORE_REFRESH) * MILES;
+
     if (startTimer < 0) {
       startTimer = 0;
     }
