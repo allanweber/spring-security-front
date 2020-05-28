@@ -11,7 +11,6 @@
       <th scope="col">User Name</th>
       <th scope="col">Email</th>
       <th scope="col">Enabled</th>
-      <th scope="col">Two Factor Authentication</th>
     </tr>
   </thead>
   <tbody>
@@ -27,18 +26,6 @@
       <td>
         <em class="fa fa-check-double" [ngClass]="[ user.enabled ? 'text-success': 'text-muted']"></em>
       </td>
-      <th scope="col">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" [id]="user.userName" [checked]="user.twoFactor"
-            (click)="changeTwoFactor(user)">
-          <label class="custom-control-label" [for]="user.userName"
-            *ngIf="user.twoFactor; else disabled">Enabled</label>
-          <ng-template #disabled>
-            <label class="custom-control-label" [for]="user.userName">Disabled</label>
-          </ng-template>
-
-        </div>
-      </th>
     </tr>
   </tbody>
 </table>

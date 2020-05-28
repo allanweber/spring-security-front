@@ -23,7 +23,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((response: HttpErrorResponse) => {
-        console.log(response);
         let errorMessage = response.statusText;
         if (response.status === 401 || response.status === 403) {
           errorMessage = 'Invalid credentials';

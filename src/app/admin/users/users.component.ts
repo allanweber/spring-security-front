@@ -16,12 +16,4 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.users = this.userService.getAll();
   }
-
-  changeTwoFactor(user: User) {
-    this.userService
-      .changeTwoFactorAuthentication(user.userName, user.twoFactor)
-      .subscribe(() => {
-        user.twoFactor = !user.twoFactor;
-      });
-  }
 }

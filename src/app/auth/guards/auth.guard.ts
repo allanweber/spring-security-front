@@ -1,30 +1,36 @@
-import { map, catchError } from 'rxjs/operators';
-import { AuthService } from './../services/auth.service';
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
+  CanActivate,
   RouterStateSnapshot,
-  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { AuthService } from './../services/auth.service';
+import { RefreshTokenService } from './../services/refresh-token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private refreshTokenService: RefreshTokenService
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuthenticated().pipe(
+    return this.authService.isAuthenticated.pipe(
+      take(1),
       map((e) => {
         if (e) {
+          this.refreshTokenService.refreshTokenTimer();
           return true;
         } else {
-          this.router.navigate(['/auth/signIn']);
+          this.authService.logout();
+          this.refreshTokenService.stop();
           return false;
         }
       })

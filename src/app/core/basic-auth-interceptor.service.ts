@@ -1,25 +1,32 @@
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
 import {
+  HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpHandler,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TokenStorageService } from './token-storage.service';
+
+const BEARER = 'Bearer ';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasicAuthInterceptorService implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private token: TokenStorageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    if (sessionStorage.getItem('token')) {
+    const token = this.token.token;
+    if (token != null && this.notLogin(req)) {
       req = req.clone({
         setHeaders: {
-          Authorization: sessionStorage.getItem('token'),
-        }, withCredentials: true
+          Authorization: `${BEARER}${token}`,
+        },
       });
     }
     return next.handle(req);
+  }
+
+  notLogin(req): boolean {
+    return !req.url.includes('/auth/login');
   }
 }

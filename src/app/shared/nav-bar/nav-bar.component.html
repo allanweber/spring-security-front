@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark" *ngIf="show()">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark" *ngIf="showNav">
   <a class="navbar-brand" [routerLink]="['/']">Any App</a>
 
   <div class="collapse navbar-collapse">
@@ -11,7 +11,7 @@
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <button class="btn btn-link text-light mr-5">User: {{ getUser() }} </button>
+      <button class="btn btn-link text-light mr-5">User: {{ userName }} </button>
       <button class="btn btn-link text-light" (click)="logout()">Logout</button>
     </div>
   </div>

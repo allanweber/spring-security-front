@@ -1,52 +1,35 @@
-import { AuthService } from '../../auth/services/auth.service';
-import {
-  Directive,
-  OnInit,
-  OnDestroy,
-  Input,
-  ViewContainerRef,
-  TemplateRef,
-} from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { TokenStorageService } from './../../core/token-storage.service';
 
 @Directive({
   selector: '[appHasRole]',
 })
-export class HasRoleDirective implements OnInit, OnDestroy {
+export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string;
-
-  stop$ = new Subject();
 
   isVisible = false;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
-    private authService: AuthService
+    private tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit() {
-    this.authService
-      .getAuthorities()
-      .pipe(takeUntil(this.stop$))
-      .subscribe((roles) => {
-        if (!roles) {
-          this.viewContainerRef.clear();
-        }
-        if (roles.some((auth) => auth.authority === this.appHasRole)) {
-          if (!this.isVisible) {
-            this.isVisible = true;
-            this.viewContainerRef.createEmbeddedView(this.templateRef);
-          }
-        } else {
-          this.isVisible = false;
-          this.viewContainerRef.clear();
-        }
-      });
-  }
-
-  ngOnDestroy() {
-    this.stop$.next();
+    const roles = this.tokenStorage.roles;
+    if (!roles) {
+      this.isVisible = false;
+      this.viewContainerRef.clear();
+      return;
+    }
+    if (roles.some((auth) => auth === `ROLE_${this.appHasRole}`)) {
+      if (!this.isVisible) {
+        this.isVisible = true;
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+      }
+    } else {
+      this.isVisible = false;
+      this.viewContainerRef.clear();
+    }
   }
 }

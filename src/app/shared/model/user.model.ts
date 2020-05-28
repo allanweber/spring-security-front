@@ -1,4 +1,4 @@
-import { Authority } from '../../auth/model/authority.model';
+import { Authority } from './authority.model';
 export class User {
   userName: string;
   firstName: string;

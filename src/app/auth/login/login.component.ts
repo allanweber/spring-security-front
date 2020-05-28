@@ -9,8 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   public loginForm = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    userName: new FormControl('user', Validators.required),
+    password: new FormControl('user', Validators.required),
   });
 
   constructor(private authService: AuthService) {}
@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
     }
 
     const credentials: any = {
-      username: this.loginForm.get('userName').value,
+      user: this.loginForm.get('userName').value,
       password: this.loginForm.get('password').value,
     };
 
-    this.authService.login(credentials);
+    this.authService.authenticate(credentials);
   }
 
   isInvalid(name) {
