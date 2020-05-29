@@ -1,3 +1,4 @@
+import { SocialComponent } from './social/social.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -7,6 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'signIn', pathMatch: 'full' },
   { path: 'signIn', component: LoginComponent },
   { path: 'signUp', component: RegisterComponent },
+  { path: 'social-signIn', component: SocialComponent },
 ];
 
 @NgModule({

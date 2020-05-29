@@ -1,10 +1,8 @@
-import { Authenticated } from './../model/authenticated.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { User } from '../../shared/model/user.model';
 import { environment } from './../../../environments/environment';
 import { TokenStorageService } from './../../core/token-storage.service';
 import { AuthUser } from './../../shared/model/auth-user.model';
@@ -50,10 +48,18 @@ export class AuthService {
         this.httpOptions
       )
       .subscribe((response) => {
-        if (response && response.token != null) {
-          this.setAuth(response);
-          this.router.navigate(['/']);
-        }
+        this.authenticateResponse(response);
+      });
+  }
+
+  authenticateSocial(token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + token }),
+    };
+    this.http
+      .get<LoginResponse>(`${environment.backend}/auth/login-social`, httpOptions)
+      .subscribe((response) => {
+        this.authenticateResponse(response);
       });
   }
 
@@ -71,6 +77,15 @@ export class AuthService {
     return this.http.get<RefreshTokenResponse>(
       `${environment.backend}/auth/refreshToken`
     );
+  }
+
+  private authenticateResponse(response: LoginResponse){
+    if (response && response.token != null) {
+      this.setAuth(response);
+      this.router.navigate(['/']);
+    } else {
+      this.logout();
+    }
   }
 
   private getAuthUser() {

@@ -20,6 +20,7 @@ export class BasicAuthInterceptorService implements HttpInterceptor {
       req = req.clone({
         setHeaders: {
           Authorization: `${BEARER}${token}`,
+          'X-Requested-With': 'XMLHttpRequest',
         },
       });
     }

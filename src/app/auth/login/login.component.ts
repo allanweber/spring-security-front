@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -29,6 +30,18 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.authenticate(credentials);
+  }
+
+  get google() {
+    return `${environment.backend}/oauth2/authorization/google`;
+  }
+
+  get facebook() {
+    return `${environment.backend}/oauth2/authorization/facebook`;
+  }
+
+  get github() {
+    return `${environment.backend}/oauth2/authorization/github`;
   }
 
   isInvalid(name) {
